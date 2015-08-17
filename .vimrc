@@ -7,11 +7,17 @@ endif
 call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
  
-"NeoBundle で管理するプラグインを追加します。
-NeoBundle 'Shougo/neocomplete'
-NeoBundle 'Shougo/unite.vim.git'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'Shougo/vimproc', {
+"NeoBundle で管理するプラグイン
+NeoBundle 'Shougo/neocomplete'		" 補完
+NeoBundle 'Shougo/unite.vim.git'	" ファイラ
+NeoBundle 'scrooloose/nerdtree'		" ディレクトリーツリーの表示
+NeoBundle 'thinca/vim-quickrun'		" \r ですぐに実行
+NeoBundle 'Shougo/neosnippet'		" スニペット 
+NeoBundle 'Shougo/neosnippet-snippets'	" スニペット
+NeoBundle 'scrooloose/syntastic'	" シンタックス・チェック
+
+" 非同期処理用
+NeoBundle 'Shougo/vimproc', {		
   \ 'build' : {
   \     'windows' : 'make -f make_mingw32.mak',
   \     'cygwin' : 'make -f make_cygwin.mak',
@@ -19,31 +25,26 @@ NeoBundle 'Shougo/vimproc', {
   \     'unix' : 'make -f make_unix.mak',
   \    },
   \ }
-NeoBundle 'eagletmt/ghcmod-vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'osyo-manga/vim-watchdogs'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'scrooloose/syntastic'
-
 call neobundle#end()
 filetype plugin indent on  " restore filetype
 NeoBundleCheck
 
 
-set number
-set incsearch
-set wildmenu wildmode=list:full
-set nohlsearch
-set cursorline
+colorscheme desert
 
-noremap <Space>ht :GhcModType<CR>
-noremap <Space>hh :GhcModTypeClear<CR>
-noremap <Space>hT :GhcModTypeInsert<CR>
-
+set number				" 行番号表示
+set incsearch				" インクリメントサーチ
+set wildmenu wildmode=list:full		" 
+set nohlsearch				" 
+set cursorline				" カーソル行の強調
+set autoindent				" 自動インデント
 
 
-" neocomplete
+""""" nerdtree
+nnoremap <silent><C-e> :NERDTreeToggle<CR>" neocomplete
+
+
+""""" neocomplete
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
@@ -76,8 +77,6 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -86,27 +85,6 @@ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -127,8 +105,7 @@ endif
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-
-" syntastic
+"""""" syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
