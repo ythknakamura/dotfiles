@@ -44,6 +44,15 @@ set autoindent				" 自動インデント
 nnoremap <silent><C-e> :NERDTreeToggle<CR>" neocomplete
 
 
+""""" quickrun
+let g:quickrun_config = {}
+let g:quickrun_config['tex'] = {
+			\ 'command' : 'latexmk',
+ 			\ 'outputter/error/error' : 'quickfix',
+			\ 'exec' : ['%c %o %s']	
+			\ }
+
+
 """"" neocomplete
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
