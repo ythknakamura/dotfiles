@@ -38,7 +38,10 @@ set wildmenu wildmode=list:full		"
 set nohlsearch				" 
 set cursorline				" カーソル行の強調
 set autoindent				" 自動インデント
-
+set guifont=Monospace\ 12 
+set guifontwide=Monospace\ 12 
+set tabstop=4
+set shiftwidth=4
 
 """"" nerdtree
 nnoremap <silent><C-e> :NERDTreeToggle<CR>" neocomplete
