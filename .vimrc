@@ -16,6 +16,7 @@ NeoBundle 'Shougo/neosnippet'		" スニペット
 NeoBundle 'Shougo/neosnippet-snippets'	" スニペット
 NeoBundle 'scrooloose/syntastic'	" シンタックス・チェック
 
+
 " 非同期処理用
 NeoBundle 'Shougo/vimproc', {		
   \ 'build' : {
@@ -54,7 +55,6 @@ let g:quickrun_config['tex'] = {
  			\ 'outputter/error/error' : 'quickfix',
 			\ 'exec' : ['%c %o %s']	
 			\ }
-
 
 """"" neocomplete
 " Disable AutoComplPop.
