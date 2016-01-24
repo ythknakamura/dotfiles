@@ -17,7 +17,9 @@ NeoBundle 'Shougo/neosnippet-snippets'	" スニペット
 NeoBundle 'scrooloose/syntastic'	" シンタックス・チェック
 NeoBundle 'ujihisa/neco-ghc'		" haskellの補完
 NeoBundle 'eagletmt/ghcmod-vim'		" haskellの型を表示
-NeoBundle 'Shougo/vimshell'			" shell
+NeoBundle 'tpope/vim-markdown'		" markdown
+NeoBundle 'tyru/open-browser.vim'	" 
+
 
 " 非同期処理用
 NeoBundle 'Shougo/vimproc', {		
@@ -46,17 +48,20 @@ set guifont=Monospace\ 12
 set guifontwide=Monospace\ 12 
 set tabstop=4
 set shiftwidth=4
-set clipboard+=unnamed
+set clipboard=unnamedplus
+set guioptions-=T
 
 vnoremap < <gv	"インデント後にビジュアルモードを解除しない
 vnoremap > >gv	
 nnoremap Y y$	" カーソル位置から行末までヤンク
 
 """"" nerdtree
-""nnoremap <silent><C-e> :NERDTreeToggle<CR>" 
+nnoremap <silent><C-e> :NERDTreeToggle<CR>" 
 
 """"" unite
-nnoremap <silent><C-e> :Unite file -buffer-name=file<CR>
+"" nnoremap <silent><C-e> :Unite file -buffer-name=file<CR>
+
+
 
 """"" quickrun
 let g:quickrun_config = get(g:, 'quickrun_config', {})
@@ -73,7 +78,9 @@ let g:quickrun_config['_'] = {
 let g:quickrun_config['tex'] = {
 	\ 'command' : 'latexmk',
 	\ 'exec'	: '%c %o %s',
-	\ }
+    \ 'outputter/error/error' : 'buffer',
+	\ 'cmdopt': '-shell-escape',
+    \ }
 let g:quickrun_config['cpp'] = {
 	\ 'command' : 'g++'	,
 	\ 'cmdopt'	: '-std=c++11 -lm',
@@ -81,6 +88,9 @@ let g:quickrun_config['cpp'] = {
 let g:quickrun_config['haskell'] = {
 	\ 'command' : 'ghc',
 	\ }
+let g:quickrun_config['markdown']={
+	\ 'outputter': 'browser',
+	\}
 
 
 au FileType qf nnoremap <silent><buffer>q :quit<CR>
