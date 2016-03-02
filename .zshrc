@@ -55,11 +55,15 @@ plugins=(git vi-mode)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+PATH="$PATH:/opt/pysh/bin"
+export PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
-source $ZSH/oh-my-zsh.sh
+OMP_NUM_THREADS=4
+export OMP_NUM_THREADS
 
+source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -84,3 +88,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# OPAM configuration
+. /home/nakamura/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+[ -s "/home/nakamura/.dnx/dnvm/dnvm.sh" ] && . "/home/nakamura/.dnx/dnvm/dnvm.sh" # Load dnvm
